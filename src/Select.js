@@ -816,6 +816,10 @@ class Select extends React.Component {
 		return this.state.isOpen;
 	}
 
+    getInputValue() {
+        return this.state.inputValue;
+    }
+
 	renderLoading () {
 		if (!this.props.isLoading) return;
 		return (
