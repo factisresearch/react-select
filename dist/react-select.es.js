@@ -711,7 +711,7 @@ var Select$1 = function (_React$Component) {
 		});
 
 		_this.state = {
-			inputValue: '',
+			inputValue: _this.props.inputValue || '',
 			isFocused: false,
 			isOpen: false,
 			isPseudoFocused: false,
@@ -758,6 +758,10 @@ var Select$1 = function (_React$Component) {
 
 			if (this.state.inputValue && this.props.value !== nextProps.value && nextProps.onSelectResetsInput) {
 				this.setState({ inputValue: this.handleInputValueChange('') });
+			}
+			if (this.props.inputValue !== nextProps.inputValue) {
+				var inputValue = nextProps.inputValue || '';
+				this.setState({ inputValue: inputValue });
 			}
 		}
 	}, {
@@ -1050,6 +1054,8 @@ var Select$1 = function (_React$Component) {
 			};
 			if (this.props.onBlurResetsInput) {
 				onBlurredState.inputValue = this.handleInputValueChange('');
+			} else {
+				onBlurredState.inputValue = this.state.inputValue;
 			}
 			this.setState(onBlurredState);
 		}
@@ -1489,6 +1495,26 @@ var Select$1 = function (_React$Component) {
 			if (this._focusedOption) {
 				return this.selectValue(this._focusedOption);
 			}
+		}
+	}, {
+		key: 'numberOfVisibleOptions',
+		value: function numberOfVisibleOptions() {
+			return this._visibleOptions ? this._visibleOptions.length : 0;
+		}
+	}, {
+		key: 'isFocused',
+		value: function isFocused() {
+			return this.state.isFocused;
+		}
+	}, {
+		key: 'isOpen',
+		value: function isOpen() {
+			return this.state.isOpen;
+		}
+	}, {
+		key: 'getInputValue',
+		value: function getInputValue() {
+			return this.state.inputValue;
 		}
 	}, {
 		key: 'renderLoading',
@@ -1933,6 +1959,7 @@ Select$1.propTypes = {
 	ignoreCase: PropTypes.bool, // whether to perform case-insensitive filtering
 	inputProps: PropTypes.object, // custom attributes for the Input
 	inputRenderer: PropTypes.func, // returns a custom input component
+	inputValue: PropTypes.string, // a custom inputValue for the component
 	instanceId: PropTypes.string, // set the components instanceId
 	isLoading: PropTypes.bool, // whether the Select is loading externally or not (such as options being loaded)
 	joinValues: PropTypes.bool, // joins multiple values into a single form field with the delimiter (legacy mode)
@@ -2002,6 +2029,7 @@ Select$1.defaultProps = {
 	ignoreAccents: true,
 	ignoreCase: true,
 	inputProps: {},
+	inputValue: '',
 	isLoading: false,
 	joinValues: false,
 	labelKey: 'label',
