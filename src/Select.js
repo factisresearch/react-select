@@ -130,18 +130,25 @@ class Select extends React.Component {
 	}
 
 	componentWillReceiveProps (nextProps) {
-		const valueArray = this.getValueArray(nextProps.value, nextProps);
+		const nextValueArray = this.getValueArray(nextProps.value, nextProps);
+		const nextValueKeyArray = nextValueArray.map(v => v[nextProps.valueKey]);
 
 		if (nextProps.required) {
 			this.setState({
-				required: handleRequired(valueArray[0], nextProps.multi),
+				required: handleRequired(nextValueArray[0], nextProps.multi),
 			});
 		} else if (this.props.required) {
 			// Used to be required but it's not any more
 			this.setState({ required: false });
 		}
 
-		if (this.state.inputValue && this.props.value !== nextProps.value && nextProps.onSelectResetsInput) {
+		const valueArray = this.getValueArray(this.props.value, this.props);
+		const valueKeyArray = valueArray.map(v => v[this.props.valueKey]);
+		const isValueEq =
+			valueKeyArray.length === nextValueKeyArray.length &&
+			valueKeyArray.every(k => nextValueKeyArray.indexOf(k) >= 0);
+
+		if (this.state.inputValue && !isValueEq && nextProps.onSelectResetsInput) {
 			this.setState({ inputValue: this.handleInputValueChange('') });
 		}
 		if (this.props.inputValue !== nextProps.inputValue) {
