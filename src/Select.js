@@ -281,7 +281,7 @@ class Select extends React.Component {
 			return;
 		}
 
-		if (event.target.tagName === 'INPUT') {
+		if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
 			if (!this.state.isFocused) {
 				this._openAfterFocus = this.props.openOnClick;
 				this.focus();

@@ -4710,6 +4710,68 @@ describe('Select', () => {
 			expect(setStateStub, 'was not called');
 		});
 
+		it('for tagName="TEXTAREA", isFocused=false should call only focus', () => {
+			event = {
+				type: 'mousedown',
+				button: 0,
+				target: {
+					tagName: 'TEXTAREA',
+				},
+				preventDefault,
+			};
+
+			instance.state.isFocused = false;
+			expect(instance._openAfterFocus, 'to equal', false );
+
+			instance.handleMouseDown(event);
+
+			expect(instance._openAfterFocus, 'to equal', true );
+			expect(preventDefault, 'was not called');
+			expect(focusStub, 'was called once');
+			expect(setStateStub, 'was not called');
+		});
+
+		it('for tagName="TEXTAREA", isFocused=true, isOpen=false should call setState', () => {
+			event = {
+				type: 'mousedown',
+				button: 0,
+				target: {
+					tagName: 'TEXTAREA',
+				},
+				preventDefault,
+			};
+
+			instance.state.isFocused = true;
+			instance.state.isOpen = false;
+
+			instance.handleMouseDown(event);
+
+			expect(preventDefault, 'was not called');
+			expect(focusStub, 'was not called');
+			expect(setStateStub, 'was called once');
+			expect(setStateStub, 'was called with', { isOpen: true, isPseudoFocused: false });
+		});
+
+		it('for tagName="TEXTAREA", isFocused=true, isOpen=true should return', () => {
+			event = {
+				type: 'mousedown',
+				button: 0,
+				target: {
+					tagName: 'TEXTAREA',
+				},
+				preventDefault,
+			};
+
+			instance.state.isFocused = true;
+			instance.state.isOpen = true;
+
+			instance.handleMouseDown(event);
+
+			expect(preventDefault, 'was not called');
+			expect(focusStub, 'was not called');
+			expect(setStateStub, 'was not called');
+		});
+
 		it('should return for disabled', () => {
 			event = {
 				type: 'mousedown',
