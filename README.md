@@ -9,6 +9,28 @@ React-Select
 
 A Select control built with and for [React](http://facebook.github.io/react/index.html). Initially built for use in [KeystoneJS](http://www.keystonejs.com).
 
+## Fork
+
+This is a fork of
+[github.com/JedWatson/react-select](https://github.com/JedWatson/react-select).
+Checkpad made this fork, tried to get the changes upstream, but the
+changes were rejected
+(https://github.com/JedWatson/react-select/pull/2565).
+So we stayed with our fork and fixed some more bugs.
+
+Here is how to proceed after making a change to the fork:
+
+```
+# Run the tests
+$ npm test
+# Build
+$ npm run-script build
+```
+
+Then commit everything (also the changes to the build artifacts) and
+reference the commit from the `package.json` of the checkpad project.
+Usually, our changes live in the branch `checkpad/master`.
+
 ## Demo & Examples
 
 Live demo: [jedwatson.github.io/react-select](http://jedwatson.github.io/react-select/)
