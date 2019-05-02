@@ -2181,7 +2181,7 @@ describe('Select', () => {
 					isPseudoFocused: false,
 				});
 
-				expect(instance, 'to contain', <input value=""/>);
+				expect(instance, 'to contain', <input value="tw"/>);
 				expect(instance, 'to contain', <div><span className="Select-value-label">Two</span></div>);
 
 				instance.setState({
